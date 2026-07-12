@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_payment_xendit_transaction_tree" model="ir.ui.view">
+        <field name="name">pos.payment.xendit.transaction.tree</field>
+        <field name="model">pos.payment.xendit.transaction</field>
+        <field name="arch" type="xml">
+            <tree string="Xendit Transactions"
+                decoration-info="state == 'draft'"
+                decoration-warning="state == 'pending'"
+                decoration-success="state == 'paid'"
+                decoration-danger="state == 'failed' or state == 'expired' or state == 'cancelled'">
+                <field name="name"/>
+                <field name="payment_request_id"/>
+                <field name="reference_id"/>
+                <field name="pos_order_uid"/>
+                <field name="pos_reference"/>
+                <field name="cashier_name"/>
+                <field name="request_amount"/>
+                <field name="currency"/>
+                <field name="channel_code"/>
+                <field name="xendit_status"/>
+                <field name="payment_date"/>
+                <field name="state"/>
+                <field name="expires_at"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pos_payment_xendit_transaction_form" model="ir.ui.view">
+        <field name="name">pos.payment.xendit.transaction.form</field>
+        <field name="model">pos.payment.xendit.transaction</field>
+        <field name="arch" type="xml">
+            <form string="Xendit Transaction">
+                <header>
+                    <field name="state" widget="statusbar" readonly="1"
+                        statusbar_colors='{"draft":"blue","pending":"orange","paid":"green","failed":"red","expired":"red","cancelled":"red"}' statusbar_visible="pending,paid,expired,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="payment_request_id" readonly="1"/>
+                            <field name="reference_id" readonly="1"/>
+                            <field name="pos_order_uid" readonly="1"/>
+                            <field name="pos_reference" readonly="1"/>
+                            <field name="pos_payment_method_id" readonly="1"/>
+                            <field name="pos_payment_line_cid" readonly="1"/>
+                            <field name="cashier_name" readonly="1"/>
+                            <field name="cashier_id" readonly="1"/>
+                            <field name="cashier_type" readonly="1"/>
+                            <field name="session_user_name" readonly="1"/>
+                            <field name="session_user_id" readonly="1"/>
+                            <field name="xendit_config_id" readonly="1"/>
+                            <field name="webhook_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="currency" readonly="1"/>
+                            <field name="request_amount" readonly="1"/>
+                            <field name="channel_code" readonly="1"/>
+                            <field name="xendit_status" readonly="1"/>
+                            <field name="expires_at" readonly="1"/>
+                            <field name="payment_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Qris Data">
+                            <group>
+                                <field name="qr_data" widget="ace" options="{'mode': 'python'}" nolabel="1" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Order Detail">
+                            <group>
+                                <field name="order_line_html" widget="html" nolabel="1" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pos_payment_xendit_transaction" model="ir.actions.act_window">
+        <field name="name">Transactions</field>
+        <field name="res_model">pos.payment.xendit.transaction</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'create': False}</field>
+    </record>
+
+    <menuitem
+        id="menu_pos_payment_xendit_transaction"
+        name="Transactions"
+        parent="oto_pos_xendit.menu_pos_payment_xendit_root"
+        action="action_pos_payment_xendit_transaction"
+        sequence="15"
+        groups="oto_pos_xendit.group_pos_xendit_manager"/>
+</odoo>

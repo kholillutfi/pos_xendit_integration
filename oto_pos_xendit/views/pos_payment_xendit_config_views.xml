@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_payment_xendit_config_tree" model="ir.ui.view">
+        <field name="name">pos.payment.xendit.config.tree</field>
+        <field name="model">pos.payment.xendit.config</field>
+        <field name="arch" type="xml">
+            <tree string="Xendit Payment Configurations">
+                <field name="name"/>
+                <field name="environment"/>
+                <field name="api_base_url"/>
+                <field name="api_version"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pos_payment_xendit_config_form" model="ir.ui.view">
+        <field name="name">pos.payment.xendit.config.form</field>
+        <field name="model">pos.payment.xendit.config</field>
+        <field name="arch" type="xml">
+            <form string="Xendit Payment Configuration">
+                <header>
+                    <button name="action_request_qris" type="object" string="Request QRIS" class="oe_highlight"/>
+                    <button
+                        name="action_test_payment"
+                        type="object"
+                        string="Test Payment"
+                        attrs="{'invisible': [('environment', '=', 'live')]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="environment"/>
+                            <field name="api_base_url"/>
+                            <field
+                                name="payment_api_base_url"
+                                attrs="{'invisible': [('environment', '=', 'live')]}"/>
+                            <field name="api_version"/>
+                        </group>
+                        <group>
+                            <field name="secret_key"/>
+                            <field name="webhook_token"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Body">
+                            <group string="QRIS Body">
+                                <field name="body" widget="ace" options="{'mode': 'python'}" nolabel="1"/>
+                            </group>
+                            <group
+                                string="Payment Body"
+                                attrs="{'invisible': [('environment', '=', 'live')]}">
+                                <field name="payment_body" widget="ace" options="{'mode': 'python'}" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Response">
+                            <group string="QRIS Result">
+                                <field name="response" widget="ace" options="{'mode': 'python'}" nolabel="1" readonly="1"/>
+                                <field name="qris_image" widget="image" class="oe_avatar" readonly="1" options="{'size': [250, 250]}" nolabel="1"/>
+                            </group>
+                            <group string="Payment Result">
+                                <field name="payment_response" widget="ace" options="{'mode': 'python'}" nolabel="1" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pos_payment_xendit_config" model="ir.actions.act_window">
+        <field name="name">Payment Xendit Config</field>
+        <field name="res_model">pos.payment.xendit.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_pos_payment_xendit_root"
+        name="Payment Xendit"
+        parent="point_of_sale.menu_point_config_product"
+        sequence="999"
+        groups="oto_pos_xendit.group_pos_xendit_manager"/>
+
+    <menuitem
+        id="menu_pos_payment_xendit_config"
+        name="Payment Xendit Config"
+        parent="menu_pos_payment_xendit_root"
+        action="action_pos_payment_xendit_config"
+        sequence="10"
+        groups="oto_pos_xendit.group_pos_xendit_manager"/>
+</odoo>

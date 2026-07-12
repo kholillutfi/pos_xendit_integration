@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="oto_pos_customer.ClientDetailsEdit"
+        t-inherit="point_of_sale.ClientDetailsEdit"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' client-details-box ')]" position="after">
+            <div class="client-details-box clearfix oto-pos-customer-extra-fields">
+                <div class="client-details-left">
+                    <div class="client-detail">
+                        <span class="label">Plat Nomor</span>
+                        <input class="detail" name="vehicle_plate_number" t-on-change="captureChange" t-att-value="_getFieldValue('vehicle_plate_number')" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Vehicle Manufacture</span>
+                        <select class="detail needsclick" name="vehicle_manufacture_id" t-on-change="captureChange">
+                            <option value="">None</option>
+                            <t t-foreach="vehicleManufactures" t-as="vehicleManufacture" t-key="vehicleManufacture.id">
+                                <option t-att-value="vehicleManufacture.id" t-att-selected="selectedVehicleManufactureId === vehicleManufacture.id ? true : undefined">
+                                    <t t-esc="vehicleManufacture.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Vehicle Model</span>
+                        <select class="detail needsclick" name="vehicle_model_id" t-on-change="captureChange">
+                            <option value="">None</option>
+                            <t t-foreach="vehicleModels" t-as="vehicleModel" t-key="vehicleModel.id">
+                                <option t-att-value="vehicleModel.id" t-att-selected="selectedVehicleModelId === vehicleModel.id ? true : undefined">
+                                    <t t-esc="vehicleModel.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Vehicle Type</span>
+                        <select class="detail needsclick" name="vehicle_type_id" t-on-change="captureChange">
+                            <option value="">None</option>
+                            <t t-foreach="vehicleTypes" t-as="vehicleType" t-key="vehicleType.id">
+                                <option t-att-value="vehicleType.id" t-att-selected="selectedVehicleTypeId === vehicleType.id ? true : undefined">
+                                    <t t-esc="vehicleType.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Transmisi</span>
+                        <input class="detail" t-att-value="transmissionName" readonly="readonly" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Warna</span>
+                        <select class="detail needsclick" name="vehicle_color_id" t-on-change="captureChange">
+                            <option value="">None</option>
+                            <t t-foreach="vehicleColors" t-as="vehicleColor" t-key="vehicleColor.id">
+                                <option t-att-value="vehicleColor.id" t-att-selected="selectedVehicleColorId === vehicleColor.id ? true : undefined">
+                                    <t t-esc="vehicleColor.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="client-details-right">
+                    <div class="client-detail">
+                        <span class="label">Nama Pengguna</span>
+                        <input class="detail" name="pengguna_name" t-on-change="captureChange" t-att-value="_getFieldValue('pengguna_name')" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Tahun</span>
+                        <input class="detail" name="vehicle_year" t-on-change="captureChange" t-att-value="_getFieldValue('vehicle_year')" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Odometer</span>
+                        <input class="detail" name="vehicle_odometer" type="number" t-on-change="captureChange" t-att-value="_getFieldValue('vehicle_odometer')" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Nomor Rangka</span>
+                        <input class="detail" name="vehicle_chassis_number" t-on-change="captureChange" t-att-value="_getFieldValue('vehicle_chassis_number')" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Nomor Mesin</span>
+                        <input class="detail" name="vehicle_machine_number" t-on-change="captureChange" t-att-value="_getFieldValue('vehicle_machine_number')" />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

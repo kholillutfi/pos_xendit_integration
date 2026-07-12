@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_common_oto_pos_customer" inherit_id="point_of_sale.assets_common">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/oto_pos_customer/static/src/js/models.js"/>
+            <script type="text/javascript" src="/oto_pos_customer/static/src/js/client_details_edit.js"/>
+        </xpath>
+    </template>
+</odoo>

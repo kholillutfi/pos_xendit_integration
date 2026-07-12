@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_payment_xendit_manager,pos.payment.xendit.config manager,model_pos_payment_xendit_config,point_of_sale.group_pos_manager,1,1,1,1
+access_pos_payment_xendit_transaction_manager,pos.payment.xendit.transaction manager,model_pos_payment_xendit_transaction,point_of_sale.group_pos_manager,1,1,1,1
+access_pos_payment_xendit_webhook_manager,pos.payment.xendit.webhook manager,model_pos_payment_xendit_webhook,point_of_sale.group_pos_manager,1,1,1,1

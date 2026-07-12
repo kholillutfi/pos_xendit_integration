@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="XenditQrisPopup" owl="1">
+        <div role="dialog" class="modal-dialog xendit-qris-dialog">
+            <div class="popup popup-confirm xendit-qris-popup">
+                <p class="title">
+                    <t t-esc="props.title"/>
+                </p>
+                <div class="body xendit-qris-body">
+                    <div t-if="props.qrisImage" class="xendit-qris-image-wrap">
+                        <img class="xendit-qris-image" t-att-src="props.qrisImage" alt="Xendit QRIS"/>
+                    </div>
+                    <div t-if="!props.qrisImage and props.qrString" class="xendit-qris-string">
+                        <t t-esc="props.qrString"/>
+                    </div>
+                    <table class="xendit-qris-table">
+                        <tr>
+                            <td>Amount</td>
+                            <td t-esc="props.amount"/>
+                        </tr>
+                        <tr>
+                            <td>Payment Request</td>
+                            <td t-esc="props.paymentRequestId || '-'"/>
+                        </tr>
+                        <tr>
+                            <td>Reference</td>
+                            <td t-esc="props.referenceId || '-'"/>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td t-esc="props.status || '-'"/>
+                        </tr>
+                        <tr>
+                            <td>Expired At</td>
+                            <td t-esc="props.expiresAt || '-'"/>
+                        </tr>
+                    </table>
+                    <div class="xendit-qris-note">
+                        Menunggu webhook pembayaran. Status POS akan update otomatis saat transaksi dibayar.
+                    </div>
+                </div>
+                <div class="footer xendit-qris-footer">
+                    <div class="button cancel xendit-qris-cancel-button" t-on-click="cancel">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

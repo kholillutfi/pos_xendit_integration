@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_oto_pos_xendit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.oto.pos.xendit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='o_settings_use_payment_terminals']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box"
+                     id="xendit_payment_terminal_setting"
+                     title="The transactions are processed by Xendit. Configure the related payment method before using it in the PoS.">
+                    <div class="o_setting_left_pane">
+                        <field name="xendit_payment_terminal"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="xendit_payment_terminal" string="Xendit"/>
+                        <div class="text-muted">
+                            Accept payments with Xendit payment terminal
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
