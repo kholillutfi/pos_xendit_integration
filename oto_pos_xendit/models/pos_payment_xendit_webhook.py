@@ -5,7 +5,7 @@ from odoo import fields, models
 
 class PosPaymentXenditWebhook(models.Model):
     _name = "pos.payment.xendit.webhook"
-    _description = "POS Payment Xendit Webhook"
+    _description = "POS Payment Xendit Log"
     _order = "received_at desc, id desc"
     _rec_name = "transaction_id"
 

@@ -36,7 +36,7 @@ class PosPaymentXenditConfig(models.Model):
     )
     environment = fields.Selection(
         selection=[
-            ("test", "Sandbox"),
+            ("test", "Test"),
             ("live", "Production"),
         ],
         required=True,

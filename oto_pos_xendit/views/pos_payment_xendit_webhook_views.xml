@@ -4,7 +4,7 @@
         <field name="name">pos.payment.xendit.webhook.tree</field>
         <field name="model">pos.payment.xendit.webhook</field>
         <field name="arch" type="xml">
-            <tree string="Xendit Webhook Logs">
+            <tree string="Xendit Payment Logs">
                 <field name="transaction_id"/>
                 <field name="received_at"/>
             </tree>
@@ -15,7 +15,7 @@
         <field name="name">pos.payment.xendit.webhook.form</field>
         <field name="model">pos.payment.xendit.webhook</field>
         <field name="arch" type="xml">
-            <form string="Xendit Webhook Log">
+            <form string="Xendit Payment Log">
                 <sheet>
                     <group>
                         <group>
@@ -38,7 +38,7 @@
     </record>
 
     <record id="action_pos_payment_xendit_webhook" model="ir.actions.act_window">
-        <field name="name">Webhook Log</field>
+        <field name="name">Payment Log</field>
         <field name="res_model">pos.payment.xendit.webhook</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'create': False}</field>
@@ -46,7 +46,7 @@
 
     <menuitem
         id="menu_pos_payment_xendit_webhook"
-        name="Webhook Log"
+        name="Payment Log"
         parent="oto_pos_xendit.menu_pos_payment_xendit_root"
         action="action_pos_payment_xendit_webhook"
         sequence="20"

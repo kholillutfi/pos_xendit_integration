@@ -43,7 +43,7 @@ class PosPaymentXenditTransaction(models.Model):
     )
     webhook_id = fields.Many2one(
         "pos.payment.xendit.webhook",
-        string="Webhook Log",
+        string="Payment Log",
         readonly=True,
         ondelete="set null",
     )
