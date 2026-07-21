@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_oto_pos_quotation_form" model="ir.ui.view">
+        <field name="name">oto.pos.quotation.form</field>
+        <field name="model">oto.pos.quotation.form</field>
+        <field name="arch" type="xml">
+            <form string="Customer Vehicle Form" class="oto_pos_quotation_form">
+                <sheet>
+                    <field name="partner_readonly" invisible="1"/>
+                    <group col="2">
+                        <group>
+                            <field
+                                name="vehicle_plate_number_id"
+                                options="{'always_reload': True, 'no_quick_create': True, 'no_create_edit': False}"
+                                context="{'default_partner_id': partner_id}"
+                                domain="[('partner_id', '=', partner_id)]"
+                            />
+                            <field name="vehicle_year"/>
+                            <field name="transmission_id"/>
+                            <field name="vehicle_chassis_number"/>
+                            <field name="vehicle_machine_number"/>
+                            <field name="vehicle_type_id"/>
+                            <field name="vehicle_color_id"/>
+                            <field name="vehicle_manufacture_id"/>
+                        </group>
+                        <group>
+                            <field name="vehicle_odometer"/>
+                            <field name="vehicle_model_id"/>
+                            <field
+                                name="partner_id"
+                                widget="res_partner_many2one"
+                                context="{'res_partner_search_mode': 'customer'}"
+                                options="{'always_reload': True, 'no_quick_create': True, 'no_create_edit': False}"
+                                attrs="{'readonly': [('partner_readonly', '=', True)]}"
+                            />
+                            <field name="complaint_note" placeholder="Masukkan keluhan customer..."/>
+                            <field name="saran" placeholder="Masukkan saran..."/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

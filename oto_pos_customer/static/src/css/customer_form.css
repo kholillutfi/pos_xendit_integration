@@ -1,0 +1,156 @@
+/* The backend asset bundle is loaded so legacy form views can be displayed in
+ * the POS. Bootstrap's .modal-dialog rule limits dialogs to 500px and disables
+ * pointer events, so restore the native POS popup overlay explicitly. */
+.pos .popups .modal-dialog {
+    box-sizing: border-box !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    z-index: 1000 !important;
+}
+
+/* Bootstrap changes the numpad container to border-box. Its 1px border then
+ * reduces the inner width below the four 74px buttons and wraps every fourth
+ * key onto the next row. Keep the native POS width as the content width. */
+.pos .payment-numpad .numpad {
+    box-sizing: content-box !important;
+}
+
+/* POS overrides .modal-dialog globally. This class is added only to the
+ * dedicated customer vehicle form after its action is mounted. */
+.modal-dialog.oto-pos-customer-form-dialog {
+    box-sizing: border-box !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    width: 88vw !important;
+    max-width: 1100px !important;
+    height: 82vh !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.modal-dialog.oto-pos-customer-form-dialog > .modal-content {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+}
+
+/* Center relation dialogs opened from fields inside the customer vehicle
+ * form. Their size stays closer to a regular Odoo form dialog. */
+body.oto-pos-customer-form-open
+    .o_dialog_container
+    .modal-dialog:not(.oto-pos-customer-form-dialog) {
+    box-sizing: border-box !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    width: 72vw !important;
+    max-width: 900px !important;
+    height: 72vh !important;
+    min-height: 380px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+body.oto-pos-customer-form-open
+    .o_dialog_container
+    .modal-dialog:not(.oto-pos-customer-form-dialog)
+    > .modal-content {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+}
+
+body.oto-pos-customer-form-open
+    .o_dialog_container
+    .modal-dialog:not(.oto-pos-customer-form-dialog)
+    .modal-body {
+    min-height: 0;
+    overflow: auto;
+}
+
+.modal-dialog.oto-pos-customer-form-dialog .modal-body.o_act_window {
+    min-height: 0;
+    overflow: auto;
+}
+
+/* Odoo 15 forces every group inside a non-modal-lg dialog to 100% width.
+ * This dialog is modal-xl, so restore the two o_group_col_6 columns. */
+@media screen and (min-width: 768px) {
+    .modal-dialog.oto-pos-customer-form-dialog
+        .oto_pos_quotation_form
+        .o_group
+        > .o_group.o_group_col_6 {
+        width: 50% !important;
+        vertical-align: top;
+    }
+}
+
+.modal-dialog.oto-pos-customer-form-dialog .modal-footer {
+    min-height: 64px;
+    padding: 12px 16px !important;
+    align-items: center;
+    justify-content: flex-start !important;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.modal-dialog.oto-pos-customer-form-dialog .modal-footer .o_form_buttons_view,
+.modal-dialog.oto-pos-customer-form-dialog .modal-footer .o_form_buttons_edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-dialog.oto-pos-customer-form-dialog .modal-footer .o_hidden {
+    display: none !important;
+}
+
+.modal-dialog.oto-pos-customer-form-dialog .modal-footer .btn {
+    min-width: 88px !important;
+    margin: 0 !important;
+    padding: 9px 18px !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+@media screen and (max-width: 767px) {
+    .modal-dialog.oto-pos-customer-form-dialog {
+        width: calc(100vw - 16px) !important;
+        max-width: none !important;
+        height: calc(100vh - 16px) !important;
+    }
+
+    body.oto-pos-customer-form-open
+        .o_dialog_container
+        .modal-dialog:not(.oto-pos-customer-form-dialog) {
+        width: calc(100vw - 16px) !important;
+        max-width: none !important;
+        height: calc(100vh - 32px) !important;
+        min-height: 0 !important;
+    }
+}

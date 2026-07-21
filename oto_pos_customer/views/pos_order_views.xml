@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_order_form_oto_pos_quotation" model="ir.ui.view">
+        <field name="name">pos.order.form.oto.pos.quotation</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='order_fields']/field[@name='partner_id']" position="after">
+                <field
+                    name="oto_pos_quotation_form_id"
+                    readonly="1"
+                    options="{'no_create': True}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

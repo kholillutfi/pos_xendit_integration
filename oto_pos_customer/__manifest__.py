@@ -1,27 +1,21 @@
 {
-    "name": "OTO Pos Customer",
-    "version": "15.0.1.0.0",
+    "name": "OTO POS Customer",
+    "version": "15.0.1.2.2",
     "category": "Point of Sale",
-    "summary": "Tambahan field customer POS untuk informasi kendaraan dan pengguna",
+    "summary": "Capture customer vehicle information from the POS",
     "description": """
-Tambahan field customer POS untuk mencatat data kendaraan dan pengguna kendaraan
-langsung dari layar Point of Sale.
+Open a dedicated vehicle information form when creating or editing customers
+from Point of Sale, then sync the selected partner back into the POS.
 """,
     "author": "M. Kholil Lutfi S.Kom",
     "website": "",
-    "depends": [
-        "point_of_sale",
-        "groow_otoexpert",
-        "groow_contact_pks",
-    ],
+    "depends": ["point_of_sale", "groow_otoexpert"],
     "data": [
+        "security/ir.model.access.csv",
+        "views/oto_pos_quotation_form_views.xml",
+        "views/pos_order_views.xml",
         "views/point_of_sale_assets.xml",
     ],
-    "assets": {
-        "web.assets_qweb": [
-            "oto_pos_customer/static/src/xml/client_details_edit.xml",
-        ],
-    },
     "installable": True,
     "application": False,
     "auto_install": False,

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="assets_common_oto_pos_customer" inherit_id="point_of_sale.assets_common">
+        <xpath expr="//t[@t-call-assets='point_of_sale.assets' and @t-js='false']" position="before">
+            <t t-call-assets="web.assets_backend" t-js="false"/>
+        </xpath>
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/oto_pos_customer/static/src/js/models.js"/>
-            <script type="text/javascript" src="/oto_pos_customer/static/src/js/client_details_edit.js"/>
+            <link rel="stylesheet" type="text/css" href="/oto_pos_customer/static/src/css/customer_form.css?v=15.0.1.2.2"/>
+            <script type="text/javascript" src="/oto_pos_customer/static/src/js/client_list_screen.js?v=15.0.1.2.2"/>
         </xpath>
     </template>
 </odoo>
