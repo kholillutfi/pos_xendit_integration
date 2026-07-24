@@ -5,6 +5,9 @@
         <field name="model">pos.order</field>
         <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_pos_order_invoice']" position="after">
+                <button name="action_oto_pos_invoice_58" string="Print 58" type="object"/>
+            </xpath>
             <xpath expr="//group[@name='order_fields']/field[@name='partner_id']" position="after">
                 <field
                     name="oto_pos_quotation_form_id"

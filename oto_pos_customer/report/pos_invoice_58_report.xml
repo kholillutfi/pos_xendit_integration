@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_pos_invoice_58" model="report.paperformat">
+            <field name="name">POS Invoice 58mm Format</field>
+            <field name="default" eval="False"/>
+            <field name="format">custom</field>
+            <field name="page_height">160</field>
+            <field name="page_width">58</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">3</field>
+            <field name="dpi">130</field>
+        </record>
+
+        <record id="action_report_pos_invoice_58" model="ir.actions.report">
+            <field name="name">Print 58</field>
+            <field name="model">pos.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">oto_pos_customer.report_pos_invoice_58</field>
+            <field name="report_file">oto_pos_customer.report_pos_invoice_58</field>
+            <field name="paperformat_id" ref="oto_pos_customer.paperformat_pos_invoice_58"/>
+            <field name="print_report_name">'POS Invoice 58 - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

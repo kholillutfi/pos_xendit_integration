@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt')]" position="replace">
+            <div class="pos-receipt" style="font-family: Calibri; font-size: 8pt;">
+                <t t-set="oto" t-value="receipt.oto_pos_58"/>
+                <t t-if="receipt.company.logo">
+                    <img class="pos-receipt-logo" t-att-src="receipt.company.logo" alt="Logo"/>
+                    <br/>
+                </t>
+                <div style="display:flex; width:100%;">
+                    <div style="width:75%; font-size:8pt;">
+                        <b>
+                            OTOEXPERT
+                            <t t-esc="oto.branch_name"/>
+                            <br/>
+                            OPERATED BY AUTO2000
+                        </b>
+                    </div>
+                    <div style="width:25%; font-size:7pt;">
+                        <b>KUITANSI</b>
+                    </div>
+                </div>
+                <div style="font-size:7pt;">
+                    <t t-esc="oto.branch_address"/>
+                </div>
+                <br/>
+
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'No Kuitansi'"/>
+                    <t t-set="value" t-value="oto.receipt_no"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Tgl Kuitansi'"/>
+                    <t t-set="value" t-value="oto.receipt_date"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'No Polisi'"/>
+                    <t t-set="value" t-value="oto.plate_no"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Service Order'"/>
+                    <t t-set="value" t-value="oto.service_order"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Tgl SO'"/>
+                    <t t-set="value" t-value="oto.service_order_date"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Model Tahun'"/>
+                    <t t-set="value" t-value="oto.model_year"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Odometer'"/>
+                    <t t-set="value" t-value="oto.odometer"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Mekanik'"/>
+                    <t t-set="value" t-value="oto.mechanic"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'ID Cust'"/>
+                    <t t-set="value" t-value="oto.customer_id"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'NPWP'"/>
+                    <t t-set="value" t-value="oto.npwp"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'NIK'"/>
+                    <t t-set="value" t-value="oto.nik"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Email'"/>
+                    <t t-set="value" t-value="oto.email"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Nama Cust'"/>
+                    <t t-set="value" t-value="oto.customer_name"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'No HP'"/>
+                    <t t-set="value" t-value="oto.phone"/>
+                </t>
+                <t t-call="OtoPosCustomerReceiptInfoLine">
+                    <t t-set="label" t-value="'Alamat'"/>
+                    <t t-set="value" t-value="oto.address"/>
+                </t>
+
+                <br/>
+                <table style="width:100%; font-size:8pt;">
+                    <thead>
+                        <tr>
+                            <th style="width:30%; text-align:left;">Pekerjaan</th>
+                            <th style="width:20%; text-align:right;">Harga</th>
+                            <th style="width:20%; text-align:center;">Disc%</th>
+                            <th style="width:10%; text-align:center;">Qty</th>
+                            <th style="width:20%; text-align:right;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="receipt.orderlines" t-as="line" t-key="line.id">
+                            <tr>
+                                <td style="width:30%; text-align:left;">
+                                    <t t-esc="line.product_name"/>
+                                </td>
+                                <td style="width:20%; text-align:right;">
+                                    <t t-esc="env.pos.format_currency_no_symbol(line.price)"/>
+                                </td>
+                                <td style="width:20%; text-align:center;">
+                                    <t t-esc="line.discount"/>
+                                </td>
+                                <td style="width:10%; text-align:center;">
+                                    <t t-esc="line.quantity"/>
+                                </td>
+                                <td style="width:20%; text-align:right;">
+                                    <t t-esc="env.pos.format_currency_no_symbol(line.price_without_tax)"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <br/>
+
+                <div style="display:flex; width:100%;">
+                    <div style="width:50%;">
+                        <div>DPP : <t t-esc="env.pos.format_currency_no_symbol(receipt.total_without_tax)"/></div>
+                        <div>PPN : <t t-esc="env.pos.format_currency_no_symbol(receipt.total_tax)"/></div>
+                        <div>Total : <t t-esc="env.pos.format_currency_no_symbol(receipt.total_with_tax)"/></div>
+                    </div>
+                    <div style="width:50%;">
+                        <div>Diskon : <t t-esc="env.pos.format_currency_no_symbol(-receipt.total_discount)"/></div>
+                        <div>Uang Muka : <t t-esc="env.pos.format_currency_no_symbol(0)"/></div>
+                        <div>Grand Total : <t t-esc="env.pos.format_currency_no_symbol(receipt.total_with_tax)"/></div>
+                    </div>
+                </div>
+                <br/>
+
+                <div>
+                    <span style="font-weight: bold">Saran : </span>
+                    <span><t t-esc="oto.saran"/>.</span>
+                </div>
+                <br/>
+                <div style="width:50%; margin-left:50%; text-align:center;">Pembuat</div>
+                <br/>
+                <br/>
+                <div style="width:50%; margin-left:50%; text-align:center;">
+                    <t t-esc="oto.mechanic"/>
+                </div>
+                <div>
+                    <span style="font-weight: bold">Syarat dan Ketentuan :</span>
+                    <br/>
+                    <span>- Jaminan pekerjaan yang dilakukan berlaku 7 hari sejak tanggal kuitansi.</span>
+                    <br/>
+                    <span style="font-weight: bold">Untuk pembayaran dapat ditransfer ke no rekening berikut :</span>
+                    <br/>
+                    <span>BCA - 6591000729 a/n PT Astra Inovasi Otomotif</span>
+                    <br/>
+                    <span>Permata - 00702442141 a/n PT Astra Inovasi Otomotif</span>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="OtoPosCustomerReceiptInfoLine" owl="1">
+        <div style="display:flex; width:100%;">
+            <div style="width:30%"><t t-esc="label"/></div>
+            <div style="width:5%">:</div>
+            <div style="width:65%"><t t-esc="value || '-'"/></div>
+        </div>
+    </t>
+</templates>

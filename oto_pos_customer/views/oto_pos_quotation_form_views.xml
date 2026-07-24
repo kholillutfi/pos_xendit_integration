@@ -13,7 +13,6 @@
                                 name="vehicle_plate_number_id"
                                 options="{'always_reload': True, 'no_quick_create': True, 'no_create_edit': False}"
                                 context="{'default_partner_id': partner_id}"
-                                domain="[('partner_id', '=', partner_id)]"
                             />
                             <field name="vehicle_year"/>
                             <field name="transmission_id"/>

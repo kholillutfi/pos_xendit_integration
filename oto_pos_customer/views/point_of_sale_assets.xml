@@ -5,8 +5,9 @@
             <t t-call-assets="web.assets_backend" t-js="false"/>
         </xpath>
         <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/css" href="/oto_pos_customer/static/src/css/customer_form.css?v=15.0.1.2.2"/>
-            <script type="text/javascript" src="/oto_pos_customer/static/src/js/client_list_screen.js?v=15.0.1.2.2"/>
+            <link rel="stylesheet" type="text/css" href="/oto_pos_customer/static/src/css/customer_form.css?v=15.0.1.2.6"/>
+            <script type="text/javascript" src="/oto_pos_customer/static/src/js/client_list_screen.js?v=15.0.1.2.6"/>
+            <script type="text/javascript" src="/oto_pos_customer/static/src/js/product_screen.js?v=15.0.1.2.6"/>
         </xpath>
     </template>
 </odoo>

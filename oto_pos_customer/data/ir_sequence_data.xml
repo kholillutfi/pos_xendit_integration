@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_unique_customer_no" model="ir.sequence">
+        <field name="name">Unique Customer No</field>
+        <field name="code">oto_pos_customer.unique_no</field>
+        <field name="implementation">no_gap</field>
+        <field name="prefix">%(year)s</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+        <field name="number_next">1</field>
+        <field name="use_date_range" eval="False"/>
+    </record>
+</odoo>

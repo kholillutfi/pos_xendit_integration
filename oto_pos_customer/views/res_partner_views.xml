@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_oto_pos_customer_unique_no" model="ir.ui.view">
+        <field name="name">res.partner.form.oto.pos.customer.unique.no</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]/h1" position="after">
+                <div class="mt8">
+                    <label for="customer_unique_no" string="Unique Customer No"/>
+                    <div>
+                        <field name="customer_unique_no" class="oe_inline"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_oto_pos_customer_unique_no" model="ir.ui.view">
+        <field name="name">res.partner.search.oto.pos.customer.unique.no</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='name']" position="after">
+                <field name="customer_unique_no" string="Unique Customer No"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

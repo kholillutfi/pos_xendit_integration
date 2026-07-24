@@ -10,6 +10,26 @@ const { isConnectionError } = require("point_of_sale.utils");
 const CUSTOMER_FORM_DIALOG_CLASS = "oto-pos-customer-form-dialog";
 const CUSTOMER_FORM_OPEN_CLASS = "oto-pos-customer-form-open";
 
+models.load_fields("res.partner", ["ktp_number"]);
+models.load_fields("res.users", ["branch_id"]);
+
+models.load_models({
+    model: "res.branch",
+    fields: ["name", "address"],
+    domain: function (self) {
+        const branchIds = (self.users || [])
+            .map((user) => user.branch_id && user.branch_id[0])
+            .filter((branchId) => branchId);
+        return [["id", "in", branchIds]];
+    },
+    loaded: function (self, branches) {
+        self.oto_pos_branches_by_id = {};
+        branches.forEach((branch) => {
+            self.oto_pos_branches_by_id[branch.id] = branch;
+        });
+    },
+}, { after: "res.users" });
+
 const PosOrderSuper = models.Order.prototype;
 models.Order = models.Order.extend({
     init_from_JSON(json) {
@@ -18,12 +38,45 @@ models.Order = models.Order.extend({
         this.oto_pos_quotation_form_partner_id = this.oto_pos_quotation_form_id
             ? json.partner_id || false
             : false;
+        this.oto_pos_receipt_info = json.oto_pos_receipt_info || {};
     },
 
     export_as_JSON() {
         const json = PosOrderSuper.export_as_JSON.apply(this, arguments);
         json.oto_pos_quotation_form_id = this.oto_pos_quotation_form_id || false;
+        json.oto_pos_receipt_info = this.oto_pos_receipt_info || {};
         return json;
+    },
+
+    export_for_printing() {
+        const receipt = PosOrderSuper.export_for_printing.apply(this, arguments);
+        const client = this.get_client();
+        const user = this.pos.user;
+        const branchId = user && user.branch_id && user.branch_id[0];
+        const branch = branchId && this.pos.oto_pos_branches_by_id
+            ? this.pos.oto_pos_branches_by_id[branchId]
+            : false;
+        receipt.oto_pos_58 = {
+            branch_name: branch ? branch.name : "-",
+            branch_address: branch && branch.address ? branch.address : "-",
+            receipt_no: receipt.name || "-",
+            receipt_date: receipt.date.localestring || receipt.date.validation_date || "-",
+            plate_no: this.oto_pos_receipt_info.plate_no || "-",
+            service_order: receipt.name || "-",
+            service_order_date: receipt.date.localestring || receipt.date.validation_date || "-",
+            model_year: this.oto_pos_receipt_info.model_year || "-",
+            odometer: this.oto_pos_receipt_info.odometer || "-",
+            mechanic: user && user.name ? user.name : "-",
+            customer_id: client ? client.id : "-",
+            npwp: client && client.vat ? client.vat : "-",
+            nik: client && client.ktp_number ? client.ktp_number : "-",
+            email: client && client.email ? client.email : "-",
+            customer_name: client && client.name ? client.name : "-",
+            phone: client && (client.mobile || client.phone) ? client.mobile || client.phone : "-",
+            address: client && client.street ? client.street : "-",
+            saran: this.oto_pos_receipt_info.saran || "-",
+        };
+        return receipt;
     },
 
     set_client(client) {
@@ -36,13 +89,15 @@ models.Order = models.Order.extend({
         ) {
             this.oto_pos_quotation_form_id = false;
             this.oto_pos_quotation_form_partner_id = false;
+            this.oto_pos_receipt_info = {};
         }
         return PosOrderSuper.set_client.apply(this, arguments);
     },
 
-    set_oto_pos_quotation_form(formId, partnerId) {
+    set_oto_pos_quotation_form(formId, partnerId, receiptInfo) {
         this.oto_pos_quotation_form_id = formId || false;
         this.oto_pos_quotation_form_partner_id = formId ? partnerId || false : false;
+        this.oto_pos_receipt_info = formId ? receiptInfo || this.oto_pos_receipt_info || {} : {};
         this.trigger("change", this);
     },
 });
@@ -94,7 +149,8 @@ const OtoPosCustomerClientListScreen = (ClientListScreen) =>
             ) {
                 this.currentOrder.set_oto_pos_quotation_form(
                     this._pendingQuotationFormId,
-                    this._pendingQuotationFormPartnerId
+                    this._pendingQuotationFormPartnerId,
+                    this._pendingQuotationReceiptInfo
                 );
             } else if (this._pendingQuotationFormId) {
                 this.currentOrder.set_oto_pos_quotation_form(false, false);
@@ -151,11 +207,12 @@ const OtoPosCustomerClientListScreen = (ClientListScreen) =>
                 return;
             }
             try {
-                const partnerId = await this.rpc({
+                const receiptInfo = await this.rpc({
                     model: "oto.pos.quotation.form",
-                    method: "oto_pos_partner_from_form",
+                    method: "oto_pos_receipt_info",
                     args: [formId],
                 });
+                const partnerId = receiptInfo && receiptInfo.partner_id;
                 if (!partnerId) {
                     return;
                 }
@@ -164,9 +221,10 @@ const OtoPosCustomerClientListScreen = (ClientListScreen) =>
                 if (partner) {
                     this._pendingQuotationFormId = formId;
                     this._pendingQuotationFormPartnerId = partnerId;
+                    this._pendingQuotationReceiptInfo = receiptInfo;
                     const currentClient = this.currentOrder.get_client();
                     if (currentClient && currentClient.id === partnerId) {
-                        this.currentOrder.set_oto_pos_quotation_form(formId, partnerId);
+                        this.currentOrder.set_oto_pos_quotation_form(formId, partnerId, receiptInfo);
                     }
                     this.state.selectedClient = partner;
                     this.state.detailIsShown = false;

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_pos_invoice_58_document">
+        <t t-call="web.basic_layout">
+            <t t-set="v" t-value="o.oto_pos_invoice_58_values()"/>
+            <div class="page">
+                <style>
+                    div{
+                                font-family: Calibri;
+                                font-size:8pt;
+                            }
+                </style>
+                <div class="oe_structure"/>
+                <div class="row">
+                    <div class="col-12 text-left">
+                        <img
+                            t-att-src="image_data_uri(o.sudo().company_id.logo)"
+                            class="float-left"
+                            style="max-height:100px;max-width: 150px;margin-right:-10px"
+                            alt="Logo"
+                        />
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-9">
+                        <div style="font-size:8pt; font-family:Calibri;margin-bottom:0px;">
+                            <b>
+                                OTOEXPERT
+                                <t t-esc="v['branch_name']"/>
+                                <br/>
+                                OPERATED BY AUTO2000
+                            </b>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div style="font-size:7pt;">
+                            <b>KUITANSI</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span style="font-size:7pt; font-family:Calibri;" t-esc="v['branch_address']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">No Kuitansi</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['receipt_no']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Tgl Kuitansi</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['receipt_date']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">No Polisi</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['plate_no']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Service Order</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['service_order']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Tgl SO</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['service_order_date']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Model Tahun</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['model_year']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Odometer</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['odometer']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Mekanik</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['mechanic']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">ID Cust</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['customer_id']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">NPWP</div>
+                    <div style="width:5%; padding:0;">:</div>
+                   <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['npwp']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">NIK</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['nik']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Email</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['email']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Nama Cust</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['customer_name']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">No HP</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['phone']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="width:30%; padding-left:15px;">Alamat</div>
+                    <div style="width:5%; padding:0;">:</div>
+                    <div style="width:65%; padding-right:15px;">
+                        <t t-esc="v['address']"/>
+                    </div>
+                </div>
+                <br/>
+                <table style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="width:30%;">Pekerjaan</th>
+                            <th style="width:20%;">Harga</th>
+                            <th style="width:20%;">Disc%</th>
+                            <th style="width:10%;">Qty</th>
+                            <th style="width:20%;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.lines" t-as="line">
+                            <tr>
+                                <td style="width:30%;" class="text-left">
+                                    <t t-esc="line.product_id.name"/>
+                                </td>
+                                <td style="width:20%;" class="text-right">
+                                    <t t-esc="line.price_unit" t-options="{'widget': 'float', 'precision': 0}"/>
+                                </td>
+                                <td style="width:20%;" class="text-center">
+                                    <t t-esc="line.discount" t-options="{'widget': 'float', 'precision': 0}"/>
+                                </td>
+                                <td style="width:10%;" class="text-center">
+                                    <t t-esc="line.qty" t-options="{'widget': 'float', 'precision': 0}"/>
+                                </td>
+                                <td style="width:20%;" class="text-right">
+                                    <t t-esc="line.price_subtotal" t-options="{'widget': 'float', 'precision': 0}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <br/>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row ">
+                            <div class="col-12 text-left">
+                                DPP :
+                                <t t-esc="v['amount_untaxed']" t-options="{'widget': 'float', 'precision': 0}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-left">
+                                PPN :
+                                <t t-esc="v['amount_tax']" t-options="{'widget': 'float', 'precision': 0}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-left">
+                                Total :
+                                <t t-esc="v['amount_total']" t-options="{'widget': 'float', 'precision': 0}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row ">
+                            <div class="col-12 text-left">
+                                Diskon :
+                                <t t-esc="v['discount_total']" t-options="{'widget': 'float', 'precision': 0}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-left">
+                                Uang Muka :
+                                <t t-esc="v['advance_amount']" t-options="{'widget': 'float', 'precision': 0}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-left">
+                                Grand Total :
+                                <t t-esc="v['grand_total']" t-options="{'widget': 'float', 'precision': 0}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-12">
+                        <span style="font-weight: bold">Saran : </span>
+                        <span style="font-weight: normal"><t t-esc="v['saran']"/>.</span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-6 offset-6 text-center">Pembuat</div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-6 offset-6 text-center">
+                        <t t-esc="v['mechanic']"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span style="font-weight: bold">Syarat dan Ketentuan :</span>
+                        <br/>
+                        <span style="font-weight: normal">- Jaminan pekerjaan yang dilakukan berlaku 7 hari sejak tanggal kuitansi.</span>
+                        <br/>
+                        <span style="font-weight: bold">Untuk pembayaran dapat ditransfer ke no rekening berikut :</span>
+                        <br/>
+                        <span style="font-weight: normal">BCA - 6591000729 a/n PT Astra Inovasi Otomotif</span>
+                        <br/>
+                        <span style="font-weight: normal">Permata - 00702442141 a/n PT Astra Inovasi Otomotif</span>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_pos_invoice_58">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="oto_pos_customer.report_pos_invoice_58_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -66,6 +66,7 @@ class OtoPosQuotationForm(models.Model):
             "vehicle_manufacture_id": vehicle.vehicle_manufacture_id.id,
             "vehicle_odometer": vehicle.vehicle_odometer,
             "vehicle_model_id": vehicle.vehicle_model_id.id,
+            "partner_id": vehicle.partner_id.id,
         }
 
     @api.model
@@ -116,3 +117,24 @@ class OtoPosQuotationForm(models.Model):
     def oto_pos_partner_from_form(self, form_id):
         form = self.browse(form_id).exists()
         return form.partner_id.id if form else False
+
+    @api.model
+    def oto_pos_receipt_info(self, form_id):
+        form = self.browse(form_id).exists()
+        if not form:
+            return {}
+        return {
+            "partner_id": form.partner_id.id,
+            "plate_no": form.vehicle_plate_number_id.display_name or "-",
+            "model_year": " ".join(
+                value
+                for value in [
+                    form.vehicle_type_id.name if form.vehicle_type_id else "",
+                    form.vehicle_year or "",
+                ]
+                if value
+            ) or "-",
+            "odometer": int(form.vehicle_odometer) if form.vehicle_odometer else "-",
+            "mechanic": "-",
+            "saran": form.saran or "-",
+        }
